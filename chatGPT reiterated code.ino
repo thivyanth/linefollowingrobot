@@ -10,6 +10,10 @@ const int leftMotor = 6;
 const int rightLineSensor = 7;
 const int leftLineSensor = 8;
 
+// LED pins
+const int rightLED = 10;
+const int leftLED = 11;
+
 // Servo control pin
 const int servoPin = 9;
 
@@ -31,18 +35,20 @@ void stop()
   digitalWrite(leftMotor, 0);
 }
 
-// left function to make the robot turn left
+// left function to make the robot turn left and turn on the left LED
 void turnLeft()
 {
   digitalWrite(rightMotor, 1);
   digitalWrite(leftMotor, 0);
+  digitalWrite(leftLED, 1);
 }
 
-// right function to make the robot turn right
+// right function to make the robot turn right and turn on the right LED
 void turnRight()
 {
   digitalWrite(leftMotor, 1);
   digitalWrite(rightMotor, 0);
+  digitalWrite(rightLED, 1);
 }
 
 // function for ultrasonic sensor
@@ -74,6 +80,8 @@ void setup()
   pinMode(servoPin, OUTPUT);
   pinMode(rightLineSensor, INPUT);
   pinMode(leftLineSensor, INPUT);
+  pinMode(rightLED, OUTPUT);
+  pinMode(leftLED, OUTPUT);
 }
 
 void loop() 
@@ -82,11 +90,15 @@ void loop()
   if (digitalRead(rightLineSensor) == 1 && digitalRead(leftLineSensor) == 1)
   {
     moveForward();
+    digitalWrite(rightLED, 0);
+    digitalWrite(leftLED, 0);
   }
   // if both right and left sensors are off the line, stop
   else if (digitalRead(rightLineSensor) == 0 && digitalRead(leftLineSensor) == 0)
   {
     stop();
+    digitalWrite(rightLED, 0);
+    digitalWrite(leftLED, 0);
   }
   // if only the right sensor is off the line, turn left
   else if (digitalRead(rightLineSensor) == 1 && digitalRead(leftLineSensor) == 0)
