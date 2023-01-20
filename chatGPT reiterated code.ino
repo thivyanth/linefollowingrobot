@@ -122,7 +122,7 @@ turnRight();
 checkDistance();
 
 // Add a condition to make the robot move in reverse
-if (distance <= 10 && distance != 0) {
-moveReverse();
-}
-}
+// if (distance <= 10 && distance != 0) {
+// moveReverse();
+// }
+// }
