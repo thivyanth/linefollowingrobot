@@ -1,0 +1,32 @@
+// Initialize PID variables
+double kp = 0.5;
+double ki = 0.1;
+double kd = 0.1;
+double error;
+double previous_error;
+double integral;
+double derivative;
+double output;
+
+void moveForward() {
+  // Measure error
+  error = desired_position - current_position;
+  
+  // Calculate integral
+  integral += error;
+  
+  // Calculate derivative
+  derivative = error - previous_error;
+  
+  // Calculate output
+  output = kp*error + ki*integral + kd*derivative;
+  
+  // Update previous error
+  previous_error = error;
+  
+  // Use output to adjust motor speeds
+  digitalWrite(rightMotor, output);
+  digitalWrite(leftMotor, output);
+  digitalWrite(rightLED, 0);
+  digitalWrite(leftLED, 0);
+}
